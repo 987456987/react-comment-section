@@ -124,12 +124,10 @@
     cursor: pointer;
     fill: var(--moderate-blue);
   }
-  
-  
-  .score-text {
-    color: var(--moderate-blue);
+
+  .test:hover {
+    fill: var(--moderate-blue);
   }
-  
   
   .content-top {
     display: flex;

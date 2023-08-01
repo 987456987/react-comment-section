@@ -1,24 +1,29 @@
 /* eslint-disable react/prop-types */
+import { ReactComponent as Plus } from '/images/icon-plus.svg'
+import { ReactComponent as Minus } from '/images/icon-minus.svg'
+
 const Comment = ({ item }) => {
+    const imagePath = `${item.user.image.webp.substring(1)}`
+    
     return (
         <>
             <div className="component-container">
                 <div className="comment">
                     <div className="score-container">
-                    <div className="score-inner-container">
-                        <button type="button" className="button-score" id="plus">
-                            +
-                        </button>
-                        <p className="score-text">{item.score}</p>
-                        <button type="button" className="button-score" id="minus">
-                            -
-                        </button>
-                    </div>
+                        <div className="score-inner-container">
+                            <button type="button" className="button-score">
+                                <Plus />
+                            </button>
+                            <p className="score-text">{item.score}</p>
+                            <button type="button" className="button-score">
+                                <Minus />
+                            </button>
+                        </div>
                     </div>
                     <div className="content-container">
                         <div className="content-top">
                             <div className="content-top-left">
-                                <img src="${user.image.webp}" className="user-img"/>
+                                <img src={imagePath} className="user-img"/>
                                 <h2 className="username">{item.user.username}</h2>
                                 <p className="createdAt">{item.createdAt}</p>
                             </div>
