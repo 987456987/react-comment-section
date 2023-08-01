@@ -54,13 +54,9 @@
   
   /* Component Classes */
   
-  #feed {
+  .feed {
     display: grid;
     gap: 1.5em;
-  }
-  
-  .component-container {
-    display: flex;
   }
   
   .reply-divider{
@@ -80,7 +76,7 @@
   }
   /* //////////////////// */
   
-  .reply, .comment {
+  .comment {
   
     padding: 1.5em;
   

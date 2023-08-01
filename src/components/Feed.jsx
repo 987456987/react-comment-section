@@ -7,16 +7,16 @@ const Feed = () => {
     const { userData } = useContext(DataContext)
 
     return (
-        <>
+        <div className="feed">
             {userData.comments.map((item, index) => (
-                <div key={index}>
-                    <Comment item={item} />
+                <>
+                    <Comment key={index} item={item} />
                     {item.replies.map((item1, index1) => (
                         <Comment key={index1} item={item1} />
                     ))}
-                </div>
+                </>
             ))}
-        </>
+        </div>
     )
 }
 
