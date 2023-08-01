@@ -1,25 +1,34 @@
-/* eslint-disable react/prop-types */
-// Context.js
+import PropTypes from 'prop-types'
 import { createContext, useState, useEffect } from 'react';
 import data from '../assets/data.json'; // Import the data from the JSON file
 
 const MyContext = createContext();
 
 const ContextProvider = ({ children }) => {
-  const [items, setItems] = useState([]);
+  const [userData, setUserData] = useState(() => {
+    const savedData = localStorage.getItem('userData')
+    return savedData
+      ? JSON.parse(savedData)
+      : data
+  })
 
   useEffect(() => {
-    // Simulate asynchronous data loading from the JSON file
-    // In a real application, you might use fetch or other methods to load data from a JSON file.
-    // Here, we'll just set the data directly.
-    setItems(data);
-  }, []);
+    localStorage.setItem('userData', JSON.stringify(userData))
+  }, [userData])
 
-  const contextData = {
-    items,
-  };
+  console.log(userData)
 
-  return <MyContext.Provider value={contextData}>{children}</MyContext.Provider>;
+  return (
+    <MyContext.Provider value={{ userData, setUserData }}>
+      {children}
+    </MyContext.Provider>
+  )
 };
+
+
+ContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+}
+
 
 export { MyContext, ContextProvider };
