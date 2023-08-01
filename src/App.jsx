@@ -7,8 +7,10 @@ function App() {
 
   return (
     <ContextProvider>
-      <Feed/>
-      <UserInput/>
+      <main>
+        <Feed />
+        <UserInput />
+      </main>
     </ContextProvider>
   )
 }
