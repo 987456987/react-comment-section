@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { createContext, useState, useEffect } from 'react';
 import data from '../assets/data.json'; // Import the data from the JSON file
 
-const MyContext = createContext();
+const DataContext = createContext();
 
 const ContextProvider = ({ children }) => {
   const [userData, setUserData] = useState(() => {
@@ -16,12 +16,10 @@ const ContextProvider = ({ children }) => {
     localStorage.setItem('userData', JSON.stringify(userData))
   }, [userData])
 
-  console.log(userData)
-
   return (
-    <MyContext.Provider value={{ userData, setUserData }}>
+    <DataContext.Provider value={{ userData, setUserData }}>
       {children}
-    </MyContext.Provider>
+    </DataContext.Provider>
   )
 };
 
@@ -31,4 +29,4 @@ ContextProvider.propTypes = {
 }
 
 
-export { MyContext, ContextProvider };
+export { DataContext, ContextProvider };
