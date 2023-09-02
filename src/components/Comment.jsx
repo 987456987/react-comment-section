@@ -1,20 +1,30 @@
 /* eslint-disable react/prop-types */
 import { ReactComponent as Plus } from "../assets/images/icon-plus.svg";
 import { ReactComponent as Minus } from "../assets/images/icon-minus.svg";
+import { useState } from "react";
 
 const Comment = ({ item }) => {
   const imagePath = `${item.user.image.webp.substring(1)}`;
+
+  const [rating, setRating] = useState(item.score);
+
+  function plusClick() {
+    setRating(item.score + 1)
+  }
+  function minusClick() {
+    setRating(item.score - 1)
+  }
 
   return (
     <>
       <div className="comment">
         <div className="score-container">
           <div className="score-inner-container">
-            <button type="button" className="button-score">
+            <button type="button" className="button-score" onClick={() => plusClick()}>
               <Plus />
             </button>
-            <p className="score-text">{item.score}</p>
-            <button type="button" className="button-score">
+            <p className="score-text">{rating}</p>
+            <button type="button" className="button-score" onClick={() => minusClick()}>
               <Minus />
             </button>
           </div>
