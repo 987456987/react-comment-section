@@ -57,6 +57,8 @@
   .feed {
     display: grid;
     gap: 1.5em;
+    height: 600px;
+    overflow-y: scroll;
   }
   
   .reply-divider{
