@@ -1,17 +1,42 @@
-import { useContext } from "react"
-import { DataContext } from "../utility/DataContext"
+import { useContext, useState } from "react";
+import { DataContext } from "../utility/DataContext";
 
 const UserInput = () => {
-    const { userData } = useContext(DataContext)
-    const imagePath = `${userData.currentUser.image.webp.substring(1)}`;
+  const { userData, addComment } = useContext(DataContext);
+  const [ input, setInput ]  = useState("");
 
-    return (
-        <div id="user-comment-input">
-            <img src={imagePath} className="user-img" />
-            <textarea id="user-comment-textarea" placeholder="Add a comment..." ></textarea>
-            <button className="submit" id="user-comment-input-submit">Send</button>
-        </div>
-    )
-}
+  const imagePath = `${userData.currentUser.image.webp.substring(1)}`;
 
-export default UserInput
+  function newComment() {
+    if(input != "") {
+        addComment(input) 
+    }
+  }
+
+  function textInput(value) {
+    setInput(value)
+    console.log(input)
+  }
+
+  return (
+    <div id="user-comment-input">
+      <img src={imagePath} className="user-img" />
+      <textarea
+        id="user-comment-textarea"
+        placeholder="Add a comment..."
+        onChange={(e) => textInput(e.target.value)}
+        value={input}
+      >
+      </textarea>
+      <button
+        className="submit"
+        id="user-comment-input-submit"
+        onClick={(e) => newComment()}
+      >
+        Send
+      </button>
+    </div>
+  );
+};
+
+export default UserInput;

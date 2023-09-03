@@ -9,12 +9,12 @@ const Feed = () => {
     return (
         <div className="feed">
             {userData.comments.map((item, index) => (
-                <>
-                    <Comment key={index} item={item} />
+                <div key={index}>
+                    <Comment  item={item} />
                     {item.replies.map((item1, index1) => (
                         <Comment key={index1} item={item1} />
                     ))}
-                </>
+                </div>
             ))}
         </div>
     )
