@@ -47,9 +47,25 @@ const ContextProvider = ({ children }) => {
     }
     setUserData(newData)
   }
+  
+  function deleteReply(id, commentId) {
+    const newData = { ...userData };
+    const index = newData.comments.findIndex((comment) => comment.id == commentId);
+    if (index !== -1) {
+      // Use splice to remove the comment at the found index
+      const replyIndex = newData.comments[index].replies.findIndex((reply) => reply.id == id)
+      console.log(replyIndex)
+      if (replyIndex !== -1)
+        newData.comments[index].replies.splice(replyIndex, 1);
+    } else {
+      // Handle the case where the comment with the specified ID was not found
+      console.log("Reply not found");
+    }
+    setUserData(newData)
+  }
 
   return (
-    <DataContext.Provider value={{ userData, addComment, deleteComment }}>
+    <DataContext.Provider value={{ userData, addComment, deleteComment, deleteReply }}>
       {children}
     </DataContext.Provider>
   );
