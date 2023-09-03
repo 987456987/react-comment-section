@@ -29,19 +29,27 @@ const ContextProvider = ({ children }) => {
       },
       replies: [],
     };
-  
-    // Create a copy of userData
+
     const newData = { ...userData };
-  
-    // Add the new comment to the comments array
     newData.comments.push(newComment);
-  
-    // Update the userData state with the modified data
     setUserData(newData);
   }
 
+  function deleteComment(id) {
+    const newData = { ...userData };
+    const index = newData.comments.findIndex((comment) => comment.id == id);
+    if (index !== -1) {
+      // Use splice to remove the comment at the found index
+      newData.comments.splice(index, 1);
+    } else {
+      // Handle the case where the comment with the specified ID was not found
+      console.log("Comment not found");
+    }
+    setUserData(newData)
+  }
+
   return (
-    <DataContext.Provider value={{ userData, addComment }}>
+    <DataContext.Provider value={{ userData, addComment, deleteComment }}>
       {children}
     </DataContext.Provider>
   );

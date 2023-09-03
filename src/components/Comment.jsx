@@ -8,7 +8,7 @@ import { useState, useContext } from "react";
 import { DataContext } from "../utility/DataContext";
 
 const Comment = ({ item }) => {
-  const { userData } = useContext(DataContext);
+  const { userData, deleteComment } = useContext(DataContext);
 
   const imagePath = `${item.user.image.webp.substring(1)}`;
 
@@ -53,7 +53,7 @@ const Comment = ({ item }) => {
             <div className="button-group">
               {userData.currentUser.username === item.user.username ? (
                 <>
-                  <button className="button-delete"><Delete />Delete</button>
+                  <button className="button-delete" onClick={() => deleteComment(item.id)}><Delete />Delete</button>
                   <button className="button-edit"><Edit />Edit</button>
                 </>
               ): 
