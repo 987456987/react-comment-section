@@ -1,18 +1,21 @@
 /* eslint-disable react/prop-types */
 import { ReactComponent as Plus } from "../assets/images/icon-plus.svg";
 import { ReactComponent as Minus } from "../assets/images/icon-minus.svg";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { DataContext } from "../utility/DataContext";
 
 const Comment = ({ item }) => {
+  const { userData } = useContext(DataContext);
+
   const imagePath = `${item.user.image.webp.substring(1)}`;
 
   const [rating, setRating] = useState(item.score);
 
   function plusClick() {
-    setRating(item.score + 1)
+    setRating(item.score + 1);
   }
   function minusClick() {
-    setRating(item.score - 1)
+    setRating(item.score - 1);
   }
 
   return (
@@ -20,11 +23,19 @@ const Comment = ({ item }) => {
       <div className="comment">
         <div className="score-container">
           <div className="score-inner-container">
-            <button type="button" className="button-score" onClick={() => plusClick()}>
+            <button
+              type="button"
+              className="button-score"
+              onClick={() => plusClick()}
+            >
               <Plus />
             </button>
             <p className="score-text">{rating}</p>
-            <button type="button" className="button-score" onClick={() => minusClick()}>
+            <button
+              type="button"
+              className="button-score"
+              onClick={() => minusClick()}
+            >
               <Minus />
             </button>
           </div>
@@ -36,11 +47,23 @@ const Comment = ({ item }) => {
               <h2 className="username">{item.user.username}</h2>
               <p className="createdAt">{item.createdAt}</p>
             </div>
-            <div className="button-group" id="${id}"></div>
+            <div className="button-group">
+              {userData.currentUser.username === item.user.username ? (
+                <>
+                  <button className="button-delete">Delete</button>
+                  <button className="button-edit">Edit</button>
+                </>
+              ): 
+              (
+                <button className="button-reply">Reply</button>
+              )}
+            </div>
           </div>
 
           <p className="content-text">
-            {item.replyingTo && <span className="replying-to">@{item.replyingTo} </span>}
+            {item.replyingTo && (
+              <span className="replying-to">@{item.replyingTo} </span>
+            )}
             {item.content}
           </p>
         </div>
