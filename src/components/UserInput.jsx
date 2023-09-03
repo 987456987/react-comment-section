@@ -31,7 +31,7 @@ const UserInput = () => {
       <button
         className="submit"
         id="user-comment-input-submit"
-        onClick={(e) => newComment()}
+        onClick={() => newComment()}
       >
         Send
       </button>
