@@ -7,8 +7,8 @@ import { ReactComponent as Delete } from "../assets/images/icon-delete.svg";
 import { useState, useContext } from "react";
 import { DataContext } from "../utility/DataContext";
 
-const Comment = ({ item }) => {
-  const { userData, deleteComment } = useContext(DataContext);
+const Comment = ({ item, comment }) => {
+  const { userData, deleteReply } = useContext(DataContext);
 
   const imagePath = `${item.user.image.webp.substring(1)}`;
 
@@ -53,7 +53,7 @@ const Comment = ({ item }) => {
             <div className="button-group">
               {userData.currentUser.username === item.user.username ? (
                 <>
-                  <button className="button-delete" onClick={() => deleteComment(item.id)}><Delete />Delete</button>
+                  <button className="button-delete" onClick={() => deleteReply(item.id, comment.id)}><Delete />Delete</button>
                   <button className="button-edit"><Edit />Edit</button>
                 </>
               ): 
@@ -62,7 +62,9 @@ const Comment = ({ item }) => {
               )}
             </div>
           </div>
+
           <p className="content-text">
+            <span className="replying-to">@{item.replyingTo} </span>
             {item.content}
           </p>
         </div>
