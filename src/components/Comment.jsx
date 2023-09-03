@@ -40,7 +40,7 @@ const Comment = ({ item }) => {
           </div>
 
           <p className="content-text">
-            {item.replyingTo && <span className="replying-to">@{item.replyingTo}</span>}
+            {item.replyingTo && <span className="replying-to">@{item.replyingTo} </span>}
             {item.content}
           </p>
         </div>
