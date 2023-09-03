@@ -197,7 +197,7 @@
     color: var(--moderate-blue);
     fill: var(--moderate-blue);
   }
-  .button-edit:hover, .button-reply:hover {
+  .button-edit:hover, .button-reply:hover, .button-reply:hover *, .button-edit:hover * {
     color: var(--light-grayish-blue);
     fill: var(--light-grayish-blue);
     cursor: pointer;
@@ -207,7 +207,7 @@
     color: var(--soft-red);
     fill: var(--soft-red);
   }
-  .button-delete:hover {
+  .button-delete:hover, .button-delete:hover * {
     color: var(--pale-red);
     fill: var(--pale-red);
     cursor: pointer;

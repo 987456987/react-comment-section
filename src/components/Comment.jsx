@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
 import { ReactComponent as Plus } from "../assets/images/icon-plus.svg";
 import { ReactComponent as Minus } from "../assets/images/icon-minus.svg";
+import { ReactComponent as Reply } from "../assets/images/icon-reply.svg";
+import { ReactComponent as Edit } from "../assets/images/icon-edit.svg";
+import { ReactComponent as Delete } from "../assets/images/icon-delete.svg";
 import { useState, useContext } from "react";
 import { DataContext } from "../utility/DataContext";
 
@@ -50,12 +53,12 @@ const Comment = ({ item }) => {
             <div className="button-group">
               {userData.currentUser.username === item.user.username ? (
                 <>
-                  <button className="button-delete">Delete</button>
-                  <button className="button-edit">Edit</button>
+                  <button className="button-delete"><Delete />Delete</button>
+                  <button className="button-edit"><Edit />Edit</button>
                 </>
               ): 
               (
-                <button className="button-reply">Reply</button>
+                <button className="button-reply"><Reply />Reply</button>
               )}
             </div>
           </div>
