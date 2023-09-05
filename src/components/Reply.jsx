@@ -89,12 +89,17 @@ const Comment = ({ item, comment }) => {
               {item.content}
             </p>
           ) : (
-            <textarea
-              className="edit-textarea"
-              value={item.content}
-              onChange={updateTextareaHeight}
-              style={{ height: textareaHeight }}
-            />
+            <>
+              <textarea
+                className="edit-textarea"
+                value={item.content}
+                onChange={updateTextareaHeight}
+                style={{ height: textareaHeight }}
+              />
+              <button className="submit" id="user-comment-input-submit">
+                UPDATE
+              </button>
+            </>
           )}
         </div>
       </div>

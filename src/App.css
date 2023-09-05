@@ -295,3 +295,8 @@
     overflow: hidden;
     box-sizing: border-box;
   }
+
+  .submit {
+    width: fit-content;
+    margin-left: auto;
+  }
