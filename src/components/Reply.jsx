@@ -14,6 +14,7 @@ const Comment = ({ item, comment }) => {
 
   const [rating, setRating] = useState(item.score);
   const [isEditing, setIsEditing] = useState(false);
+  const [textareaHeight, setTextareaHeight] = useState("auto");
 
   function plusClick() {
     setRating(item.score + 1);
@@ -21,6 +22,11 @@ const Comment = ({ item, comment }) => {
   function minusClick() {
     setRating(item.score - 1);
   }
+
+  const updateTextareaHeight = (e) => {
+    setTextareaHeight("auto"); // Reset the height to 'auto'
+    setTextareaHeight(`${e.target.scrollHeight}px`); // Set the height to match the content
+  };
 
   return (
     <>
@@ -61,7 +67,10 @@ const Comment = ({ item, comment }) => {
                     <Delete />
                     Delete
                   </button>
-                  <button className="button-edit" onClick={() => setIsEditing(true)}>
+                  <button
+                    className="button-edit"
+                    onClick={() => setIsEditing(true)}
+                  >
                     <Edit />
                     Edit
                   </button>
@@ -80,7 +89,12 @@ const Comment = ({ item, comment }) => {
               {item.content}
             </p>
           ) : (
-            <textarea>{item.content}</textarea>
+            <textarea
+              className="edit-textarea"
+              value={item.content}
+              onChange={updateTextareaHeight}
+              style={{ height: textareaHeight }}
+            />
           )}
         </div>
       </div>

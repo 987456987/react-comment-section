@@ -13,6 +13,9 @@ const Comment = ({ item }) => {
   const imagePath = `${item.user.image.webp.substring(1)}`;
 
   const [rating, setRating] = useState(item.score);
+  const [isEditing, setIsEditing] = useState(false);
+  const [textareaHeight, setTextareaHeight] = useState("auto");
+
 
   function plusClick() {
     setRating(item.score + 1);
@@ -21,6 +24,11 @@ const Comment = ({ item }) => {
     setRating(item.score - 1);
   }
 
+  const updateTextareaHeight = (e) => {
+    setTextareaHeight("auto"); // Reset the height to 'auto'
+    setTextareaHeight(`${e.target.scrollHeight}px`); // Set the height to match the content
+  };
+  
   return (
     <>
       <div className="comment">
@@ -53,18 +61,42 @@ const Comment = ({ item }) => {
             <div className="button-group">
               {userData.currentUser.username === item.user.username ? (
                 <>
-                  <button className="button-delete" onClick={() => deleteComment(item.id)}><Delete />Delete</button>
-                  <button className="button-edit"><Edit />Edit</button>
+                  <button
+                    className="button-delete"
+                    onClick={() => deleteComment(item.id)}
+                  >
+                    <Delete />
+                    Delete
+                  </button>
+                  <button
+                    className="button-edit"
+                    onClick={() => setIsEditing(true)}
+                  >
+                    <Edit />
+                    Edit
+                  </button>
                 </>
-              ): 
-              (
-                <button className="button-reply"><Reply />Reply</button>
+              ) : (
+                <button className="button-reply">
+                  <Reply />
+                  Reply
+                </button>
               )}
             </div>
           </div>
-          <p className="content-text">
-            {item.content}
-          </p>
+          {!isEditing ? (
+            <p className="content-text">
+              <span className="replying-to">@{item.replyingTo} </span>
+              {item.content}
+            </p>
+          ) : (
+            <textarea
+              className="edit-textarea"
+              value={item.content}
+              onChange={updateTextareaHeight}
+              style={{ height: textareaHeight }}
+            />
+          )}
         </div>
       </div>
     </>

@@ -290,8 +290,8 @@
     background-color: var(--light-grayish-blue);
   }
 
-  .edit-comment {
-    display: block;
-    height:auto;
+  .edit-textarea {
     padding: 1em;
+    overflow: hidden;
+    box-sizing: border-box;
   }
