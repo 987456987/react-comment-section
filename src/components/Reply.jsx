@@ -13,6 +13,7 @@ const Comment = ({ item, comment }) => {
   const imagePath = `${item.user.image.webp.substring(1)}`;
 
   const [rating, setRating] = useState(item.score);
+  const [isEditing, setIsEditing] = useState(false);
 
   function plusClick() {
     setRating(item.score + 1);
@@ -53,20 +54,34 @@ const Comment = ({ item, comment }) => {
             <div className="button-group">
               {userData.currentUser.username === item.user.username ? (
                 <>
-                  <button className="button-delete" onClick={() => deleteReply(item.id, comment.id)}><Delete />Delete</button>
-                  <button className="button-edit"><Edit />Edit</button>
+                  <button
+                    className="button-delete"
+                    onClick={() => deleteReply(item.id, comment.id)}
+                  >
+                    <Delete />
+                    Delete
+                  </button>
+                  <button className="button-edit" onClick={() => setIsEditing(true)}>
+                    <Edit />
+                    Edit
+                  </button>
                 </>
-              ): 
-              (
-                <button className="button-reply"><Reply />Reply</button>
+              ) : (
+                <button className="button-reply">
+                  <Reply />
+                  Reply
+                </button>
               )}
             </div>
           </div>
-
-          <p className="content-text">
-            <span className="replying-to">@{item.replyingTo} </span>
-            {item.content}
-          </p>
+          {!isEditing ? (
+            <p className="content-text">
+              <span className="replying-to">@{item.replyingTo} </span>
+              {item.content}
+            </p>
+          ) : (
+            <textarea>{item.content}</textarea>
+          )}
         </div>
       </div>
     </>

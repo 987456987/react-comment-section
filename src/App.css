@@ -289,3 +289,9 @@
   
     background-color: var(--light-grayish-blue);
   }
+
+  .edit-comment {
+    display: block;
+    height:auto;
+    padding: 1em;
+  }
