@@ -12,9 +12,11 @@ const Comment = ({ item, comment }) => {
     useContext(DataContext);
 
   const imagePath = `${item.user.image.webp.substring(1)}`;
+  const userImagePath = `${userData.currentUser.image.webp.substring(1)}`;
 
   const [rating, setRating] = useState(item.score);
   const [isEditing, setIsEditing] = useState(false);
+  const [isReplying, setIsReplying] = useState(false);
   const [textareaHeight, setTextareaHeight] = useState("auto");
   const [textareaContent, setTextareaContent] = useState(item.content);
 
@@ -95,7 +97,10 @@ const Comment = ({ item, comment }) => {
                   </button>
                 </>
               ) : (
-                <button className="button-reply">
+                <button
+                  className="button-reply"
+                  onClick={() => setIsReplying(true)}
+                >
                   <Reply />
                   Reply
                 </button>
@@ -112,7 +117,7 @@ const Comment = ({ item, comment }) => {
           ) : (
             <>
               <textarea
-                className="edit-textarea"
+                id="user-comment-textarea"
                 value={textareaContent}
                 onChange={(e) => textareaChange(e.target.value)}
                 style={{ height: textareaHeight }}
@@ -128,6 +133,18 @@ const Comment = ({ item, comment }) => {
           )}
         </div>
       </div>
+      {isReplying && (
+        <div id="user-comment-input">
+          <img src={userImagePath} className="user-img" />
+          <textarea
+            id="user-comment-textarea"
+            placeholder="Add a reply..."
+          ></textarea>
+          <button className="submit" id="user-comment-input-submit">
+            Reply
+          </button>
+        </div>
+      )}
     </>
   );
 };
