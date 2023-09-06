@@ -73,8 +73,23 @@ const ContextProvider = ({ children }) => {
     const index = newData.comments.findIndex((comment) => comment.id == id);
     if (index !== -1) {
       newData.comments[index].content = content;
-      
-      console.log(newData.comments[index].content)
+    } else {
+      // Handle the case where the comment with the specified ID was not found
+      console.log("Reply not found");
+    }
+    setUserData(newData);
+  }
+  function updateReply(id, parentID, content) {
+    const newData = { ...userData };
+    const index = newData.comments.findIndex(
+      (comment) => comment.id == parentID
+    );
+    if (index !== -1) {
+      const replyIndex = newData.comments[index].replies.findIndex(
+        (reply) => reply.id == id
+      );
+      if (replyIndex !== -1)
+        newData.comments[index].replies[replyIndex].content = content;
     } else {
       // Handle the case where the comment with the specified ID was not found
       console.log("Reply not found");
@@ -84,7 +99,14 @@ const ContextProvider = ({ children }) => {
 
   return (
     <DataContext.Provider
-      value={{ userData, addComment, deleteComment, deleteReply, updateComment }}
+      value={{
+        userData,
+        addComment,
+        deleteComment,
+        deleteReply,
+        updateComment,
+        updateReply
+      }}
     >
       {children}
     </DataContext.Provider>

@@ -8,14 +8,15 @@ import { useState, useContext } from "react";
 import { DataContext } from "../utility/DataContext";
 
 const Comment = ({ item, comment }) => {
-  const { userData, deleteComment, deleteReply, updateComment } = useContext(DataContext);
+  const { userData, deleteComment, deleteReply, updateComment, updateReply } =
+    useContext(DataContext);
 
   const imagePath = `${item.user.image.webp.substring(1)}`;
 
   const [rating, setRating] = useState(item.score);
   const [isEditing, setIsEditing] = useState(false);
   const [textareaHeight, setTextareaHeight] = useState("auto");
-  const [textareaContent, setTextareaContent] = useState(item.content)
+  const [textareaContent, setTextareaContent] = useState(item.content);
 
   function plusClick() {
     setRating(item.score + 1);
@@ -35,9 +36,11 @@ const Comment = ({ item, comment }) => {
   }
 
   function updateOnClick() {
-    console.log(textareaContent)
-    updateComment(item.id, textareaContent)
-    setIsEditing(false)
+    console.log(textareaContent);
+    item.replyingTo
+      ? updateReply(item.id, comment.id, textareaContent)
+      : updateComment(item.id, textareaContent);
+    setIsEditing(false);
   }
 
   return (
@@ -74,7 +77,11 @@ const Comment = ({ item, comment }) => {
                 <>
                   <button
                     className="button-delete"
-                    onClick={() => item.replyingTo ? deleteReply(item.id, comment.id) : deleteComment(item.id)}
+                    onClick={() =>
+                      item.replyingTo
+                        ? deleteReply(item.id, comment.id)
+                        : deleteComment(item.id)
+                    }
                   >
                     <Delete />
                     Delete
@@ -97,7 +104,9 @@ const Comment = ({ item, comment }) => {
           </div>
           {!isEditing ? (
             <p className="content-text">
-              {item.replyingTo && <span className="replying-to">@{item.replyingTo} </span>}
+              {item.replyingTo && (
+                <span className="replying-to">@{item.replyingTo} </span>
+              )}
               {item.content}
             </p>
           ) : (
@@ -108,7 +117,11 @@ const Comment = ({ item, comment }) => {
                 onChange={(e) => textareaChange(e.target.value)}
                 style={{ height: textareaHeight }}
               />
-              <button className="submit" id="user-comment-input-submit" onClick={() => updateOnClick()}>
+              <button
+                className="submit"
+                id="user-comment-input-submit"
+                onClick={() => updateOnClick()}
+              >
                 UPDATE
               </button>
             </>
