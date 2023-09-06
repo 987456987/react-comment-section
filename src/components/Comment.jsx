@@ -8,13 +8,14 @@ import { useState, useContext } from "react";
 import { DataContext } from "../utility/DataContext";
 
 const Comment = ({ item, comment }) => {
-  const { userData, deleteComment, deleteReply } = useContext(DataContext);
+  const { userData, deleteComment, deleteReply, updateComment } = useContext(DataContext);
 
   const imagePath = `${item.user.image.webp.substring(1)}`;
 
   const [rating, setRating] = useState(item.score);
   const [isEditing, setIsEditing] = useState(false);
   const [textareaHeight, setTextareaHeight] = useState("auto");
+  const [textareaContent, setTextareaContent] = useState(item.content)
 
   function plusClick() {
     setRating(item.score + 1);
@@ -27,6 +28,17 @@ const Comment = ({ item, comment }) => {
     setTextareaHeight("auto"); // Reset the height to 'auto'
     setTextareaHeight(`${e.target.scrollHeight}px`); // Set the height to match the content
   };
+
+  function textareaChange(content) {
+    updateTextareaHeight;
+    setTextareaContent(content);
+  }
+
+  function updateOnClick() {
+    console.log(textareaContent)
+    updateComment(item.id, textareaContent)
+    setIsEditing(false)
+  }
 
   return (
     <>
@@ -92,11 +104,11 @@ const Comment = ({ item, comment }) => {
             <>
               <textarea
                 className="edit-textarea"
-                value={item.content}
-                onChange={updateTextareaHeight}
+                value={textareaContent}
+                onChange={(e) => textareaChange(e.target.value)}
                 style={{ height: textareaHeight }}
               />
-              <button className="submit" id="user-comment-input-submit">
+              <button className="submit" id="user-comment-input-submit" onClick={() => updateOnClick()}>
                 UPDATE
               </button>
             </>

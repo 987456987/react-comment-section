@@ -45,27 +45,47 @@ const ContextProvider = ({ children }) => {
       // Handle the case where the comment with the specified ID was not found
       console.log("Comment not found");
     }
-    setUserData(newData)
+    setUserData(newData);
   }
-  
-  function deleteReply(id, commentId) {
+
+  function deleteReply(id, parentID) {
     const newData = { ...userData };
-    const index = newData.comments.findIndex((comment) => comment.id == commentId);
+    const index = newData.comments.findIndex(
+      (comment) => comment.id == parentID
+    );
     if (index !== -1) {
       // Use splice to remove the comment at the found index
-      const replyIndex = newData.comments[index].replies.findIndex((reply) => reply.id == id)
-      console.log(replyIndex)
+      const replyIndex = newData.comments[index].replies.findIndex(
+        (reply) => reply.id == id
+      );
+      console.log(replyIndex);
       if (replyIndex !== -1)
         newData.comments[index].replies.splice(replyIndex, 1);
     } else {
       // Handle the case where the comment with the specified ID was not found
       console.log("Reply not found");
     }
-    setUserData(newData)
+    setUserData(newData);
+  }
+
+  function updateComment(id, content) {
+    const newData = { ...userData };
+    const index = newData.comments.findIndex((comment) => comment.id == id);
+    if (index !== -1) {
+      newData.comments[index].content = content;
+      
+      console.log(newData.comments[index].content)
+    } else {
+      // Handle the case where the comment with the specified ID was not found
+      console.log("Reply not found");
+    }
+    setUserData(newData);
   }
 
   return (
-    <DataContext.Provider value={{ userData, addComment, deleteComment, deleteReply }}>
+    <DataContext.Provider
+      value={{ userData, addComment, deleteComment, deleteReply, updateComment }}
+    >
       {children}
     </DataContext.Provider>
   );
