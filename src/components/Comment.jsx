@@ -8,8 +8,14 @@ import { useState, useContext } from "react";
 import { DataContext } from "../utility/DataContext";
 
 const Comment = ({ item, comment }) => {
-  const { userData, deleteComment, deleteReply, updateComment, updateReply } =
-    useContext(DataContext);
+  const {
+    userData,
+    deleteComment,
+    deleteReply,
+    updateComment,
+    updateReply,
+    addReply,
+  } = useContext(DataContext);
 
   const imagePath = `${item.user.image.webp.substring(1)}`;
   const userImagePath = `${userData.currentUser.image.webp.substring(1)}`;
@@ -18,7 +24,8 @@ const Comment = ({ item, comment }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isReplying, setIsReplying] = useState(false);
   const [textareaHeight, setTextareaHeight] = useState("auto");
-  const [textareaContent, setTextareaContent] = useState(item.content);
+  const [textareaEdit, setTextareaEdit] = useState(item.content);
+  const [textareaReply, setTextareaReply] = useState("");
 
   function plusClick() {
     setRating(item.score + 1);
@@ -32,17 +39,24 @@ const Comment = ({ item, comment }) => {
     setTextareaHeight(`${e.target.scrollHeight}px`); // Set the height to match the content
   };
 
-  function textareaChange(content) {
+  function textareaEditChange(content) {
     updateTextareaHeight;
-    setTextareaContent(content);
+    setTextareaEdit(content);
   }
 
   function updateOnClick() {
-    console.log(textareaContent);
     item.replyingTo
-      ? updateReply(item.id, comment.id, textareaContent)
-      : updateComment(item.id, textareaContent);
+      ? updateReply(item.id, comment.id, textareaEdit)
+      : updateComment(item.id, textareaEdit);
     setIsEditing(false);
+  }
+
+  function addReplyOnClick() {
+    item.replyingTo
+      ? addReply(item.id, comment.id, textareaReply)
+      : addReply(item.id, null, textareaReply);
+    setIsReplying(false);
+    setTextareaReply("");
   }
 
   return (
@@ -118,8 +132,8 @@ const Comment = ({ item, comment }) => {
             <>
               <textarea
                 id="user-comment-textarea"
-                value={textareaContent}
-                onChange={(e) => textareaChange(e.target.value)}
+                value={textareaEdit}
+                onChange={(e) => textareaEditChange(e.target.value)}
                 style={{ height: textareaHeight }}
               />
               <button
@@ -139,8 +153,14 @@ const Comment = ({ item, comment }) => {
           <textarea
             id="user-comment-textarea"
             placeholder="Add a reply..."
+            onChange={(e) => setTextareaReply(e.target.value)}
+            value={textareaReply}
           ></textarea>
-          <button className="submit" id="user-comment-input-submit">
+          <button
+            className="submit"
+            id="user-comment-input-submit"
+            onClick={() => addReplyOnClick()}
+          >
             Reply
           </button>
         </div>

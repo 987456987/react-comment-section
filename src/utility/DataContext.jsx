@@ -35,6 +35,38 @@ const ContextProvider = ({ children }) => {
     setUserData(newData);
   }
 
+  function addReply(id, parentID, value) {
+    const newData = { ...userData };
+    let index = 0;
+    let replyIndex = 0;
+    if (parentID) {
+      index = newData.comments.findIndex((comment) => comment.id == parentID)
+      replyIndex = newData.comments[index].replies.findIndex((comment) => comment.id == id)
+    } else {
+      index = newData.comments.findIndex((comment) => comment.id == id)
+    }
+    const replyingTo = parentID ? newData.comments[index].replies[replyIndex].user.username : newData.comments[index].user.username
+
+      const newReply = {
+        id: generateUUID(), // Generate a unique ID for the new comment
+        content: value,
+        createdAt: "Just now",
+        score: 0,
+        replyingTo: replyingTo,
+        user: {
+          image: {
+            png: userData.currentUser.image.png,
+            webp: userData.currentUser.image.webp,
+          },
+          username: userData.currentUser.username,
+        }
+      }
+
+    newData.comments[index].replies.push(newReply)
+
+    setUserData(newData);
+  }
+
   function deleteComment(id) {
     const newData = { ...userData };
     const index = newData.comments.findIndex((comment) => comment.id == id);
@@ -105,7 +137,8 @@ const ContextProvider = ({ children }) => {
         deleteComment,
         deleteReply,
         updateComment,
-        updateReply
+        updateReply,
+        addReply
       }}
     >
       {children}
