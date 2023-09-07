@@ -47,6 +47,10 @@
   
     max-width: 720px;
   }
+
+  textarea {
+    font-size: 16px;
+  }
   
   h2 {
     font-size: 16px;
@@ -57,7 +61,6 @@
   
   .feed {
     display: grid;
-    gap: 1.5em;
     height: 600px;
     overflow-y: scroll;
   }
@@ -80,7 +83,8 @@
   /* //////////////////// */
   
   .comment {
-  
+    margin-bottom: 1.5em;
+
     padding: 1.5em;
   
     background-color: var(--white);
@@ -89,7 +93,9 @@
   
     display: flex;
     gap: 1.5em;
+    
   }
+
   
   .score-container {
     display: flex;
