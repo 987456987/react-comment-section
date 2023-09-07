@@ -83,7 +83,7 @@
   /* //////////////////// */
   
   .comment {
-    margin-bottom: 1.5em;
+    margin-top: 1.5em;
 
     padding: 1.5em;
   
@@ -93,9 +93,11 @@
   
     display: flex;
     gap: 1.5em;
-    
   }
 
+  .comment-container{
+    display: flex;
+  }
   
   .score-container {
     display: flex;

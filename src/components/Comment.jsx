@@ -60,7 +60,8 @@ const Comment = ({ item, comment }) => {
   }
 
   return (
-    <>
+    <div className={item.replyingTo && "comment-container"}>
+      {item.replyingTo && <div className="reply-divider"></div>}
       <div className="comment">
         <div className="score-container">
           <div className="score-inner-container">
@@ -165,7 +166,7 @@ const Comment = ({ item, comment }) => {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
