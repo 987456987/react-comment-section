@@ -146,8 +146,6 @@
   }
   
   .content-container {
-    display: grid;
-    gap: 1em;
     width: 100%;
     align-items: baseline;
   }
@@ -155,6 +153,7 @@
   .content-top {
     display: flex;
     align-items: center;
+    margin-bottom: 1em;
   }
   
   .content-top-left {
