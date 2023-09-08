@@ -105,7 +105,14 @@
     width: 100%;
   }
 
- 
+  .editing-container{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .edit-comment {
+    display: grid;
+  }
   
   .score-container {
     display: flex;
@@ -316,3 +323,9 @@
     width: fit-content;
     margin-left: auto;
   }
+
+  .update-button {
+    margin-top: 1em;
+  }
+
+  
