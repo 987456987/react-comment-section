@@ -7,7 +7,7 @@ import { ReactComponent as Delete } from "../assets/images/icon-delete.svg";
 import { useState, useContext } from "react";
 import { DataContext } from "../utility/DataContext";
 
-const Comment = ({ item, comment }) => {
+const Comment = ({ item, comment, replyNum }) => {
   const {
     userData,
     deleteComment,
@@ -61,109 +61,126 @@ const Comment = ({ item, comment }) => {
 
   return (
     <div className={item.replyingTo && "comment-container"}>
-      {item.replyingTo && <div className="reply-divider"></div>}
-      <div className="comment">
-        <div className="score-container">
-          <div className="score-inner-container">
-            <button
-              type="button"
-              className="button-score"
-              onClick={() => plusClick()}
-            >
-              <Plus />
-            </button>
-            <p className="score-text">{rating}</p>
-            <button
-              type="button"
-              className="button-score"
-              onClick={() => minusClick()}
-            >
-              <Minus />
-            </button>
-          </div>
-        </div>
-        <div className="content-container">
-          <div className="content-top">
-            <div className="content-top-left">
-              <img src={imagePath} className="user-img" />
-              <h2 className="username">{item.user.username}</h2>
-              <p className="createdAt">{item.createdAt}</p>
-            </div>
-            <div className="button-group">
-              {userData.currentUser.username === item.user.username ? (
-                <>
-                  <button
-                    className="button-delete"
-                    onClick={() =>
-                      item.replyingTo
-                        ? deleteReply(item.id, comment.id)
-                        : deleteComment(item.id)
-                    }
-                  >
-                    <Delete />
-                    Delete
-                  </button>
-                  <button
-                    className="button-edit"
-                    onClick={() => setIsEditing(true)}
-                  >
-                    <Edit />
-                    Edit
-                  </button>
-                </>
-              ) : (
-                <button
-                  className="button-reply"
-                  onClick={() => setIsReplying(true)}
-                >
-                  <Reply />
-                  Reply
-                </button>
-              )}
-            </div>
-          </div>
-          {!isEditing ? (
-            <p className="content-text">
-              {item.replyingTo && (
-                <span className="replying-to">@{item.replyingTo} </span>
-              )}
-              {item.content}
-            </p>
-          ) : (
-            <>
-              <textarea
-                id="user-comment-textarea"
-                value={textareaEdit}
-                onChange={(e) => textareaEditChange(e.target.value)}
-                style={{ height: textareaHeight }}
-              />
+      <div className="outer-container">
+        {item.replyingTo && (
+          <div
+            className={"reply-divider" + (replyNum === 0 ? " divider-top" : "")}
+          ></div>
+        )}
+
+        <div className="comment">
+          <div className="score-container">
+            <div className="score-inner-container">
               <button
-                className="submit"
-                id="user-comment-input-submit"
-                onClick={() => updateOnClick()}
+                type="button"
+                className="button-score"
+                onClick={() => plusClick()}
               >
-                UPDATE
+                <Plus />
               </button>
-            </>
-          )}
+              <p className="score-text">{rating}</p>
+              <button
+                type="button"
+                className="button-score"
+                onClick={() => minusClick()}
+              >
+                <Minus />
+              </button>
+            </div>
+          </div>
+          <div className="content-container">
+            <div className="content-top">
+              <div className="content-top-left">
+                <img src={imagePath} className="user-img" />
+                <h2 className="username">{item.user.username}</h2>
+                <p className="createdAt">{item.createdAt}</p>
+              </div>
+              <div className="button-group">
+                {userData.currentUser.username === item.user.username ? (
+                  <>
+                    <button
+                      className="button-delete"
+                      onClick={() =>
+                        item.replyingTo
+                          ? deleteReply(item.id, comment.id)
+                          : deleteComment(item.id)
+                      }
+                    >
+                      <Delete />
+                      Delete
+                    </button>
+                    <button
+                      className="button-edit"
+                      onClick={() => setIsEditing(true)}
+                    >
+                      <Edit />
+                      Edit
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className="button-reply"
+                    onClick={() => setIsReplying(true)}
+                  >
+                    <Reply />
+                    Reply
+                  </button>
+                )}
+              </div>
+            </div>
+            {!isEditing ? (
+              <p className="content-text">
+                {item.replyingTo && (
+                  <span className="replying-to">@{item.replyingTo} </span>
+                )}
+                {item.content}
+              </p>
+            ) : (
+              <>
+                <textarea
+                  id="user-comment-textarea"
+                  value={textareaEdit}
+                  onChange={(e) => textareaEditChange(e.target.value)}
+                  style={{ height: textareaHeight }}
+                />
+                <button
+                  className="submit"
+                  id="user-comment-input-submit"
+                  onClick={() => updateOnClick()}
+                >
+                  UPDATE
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
+
       {isReplying && (
-        <div id="user-comment-input">
-          <img src={userImagePath} className="user-img" />
-          <textarea
-            id="user-comment-textarea"
-            placeholder="Add a reply..."
-            onChange={(e) => setTextareaReply(e.target.value)}
-            value={textareaReply}
-          ></textarea>
-          <button
-            className="submit"
-            id="user-comment-input-submit"
-            onClick={() => addReplyOnClick()}
-          >
-            Reply
-          </button>
+        <div className="outer-container">
+          {item.replyingTo && (
+            <div
+              className={
+                "reply-divider" + (replyNum === 0 ? " divider-top" : "")
+              }
+            ></div>
+          )}
+          <div id="user-comment-input" className="comment">
+            <img src={userImagePath} className="user-img" />
+            <textarea
+              id="user-comment-textarea"
+              placeholder="Add a reply..."
+              onChange={(e) => setTextareaReply(e.target.value)}
+              value={textareaReply}
+            ></textarea>
+            <button
+              className="submit"
+              id="user-comment-input-submit"
+              onClick={() => addReplyOnClick()}
+            >
+              Reply
+            </button>
+          </div>
         </div>
       )}
     </div>

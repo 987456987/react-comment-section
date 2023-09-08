@@ -12,7 +12,7 @@ const Feed = () => {
                 <div key={index}>
                     <Comment  item={item} />
                     {item.replies.map((item1, index1) => (
-                        <Comment key={index1} item={item1} comment={item} />
+                        <Comment key={index1} item={item1} comment={item} replyNum={index1}/>
                     ))}
                 </div>
             ))}
