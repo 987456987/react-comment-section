@@ -72,7 +72,7 @@
   
   /* MARGIN MUST EQUAL #feed GAP MAKE VARAIBLE*/
   .divider-top {
-    margin-bottom: -1.5em;
+    margin-top: 1.5em;
   }
   .divider-middle {
     margin: -1.5em 0;
@@ -82,6 +82,15 @@
   }
   /* //////////////////// */
   
+   .comment-container{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .outer-container {
+    display: flex;
+  }
+
   .comment {
     margin-top: 1.5em;
 
@@ -93,11 +102,10 @@
   
     display: flex;
     gap: 1.5em;
+    width: 100%;
   }
 
-  .comment-container{
-    display: flex;
-  }
+ 
   
   .score-container {
     display: flex;
