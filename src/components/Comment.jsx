@@ -136,7 +136,7 @@ const Comment = ({ item, comment, replyNum }) => {
                 {item.content}
               </p>
             ) : (
-              <>
+              <div className="editing-container">
                 <textarea
                   id="user-comment-textarea"
                   value={textareaEdit}
@@ -144,13 +144,13 @@ const Comment = ({ item, comment, replyNum }) => {
                   style={{ height: textareaHeight }}
                 />
                 <button
-                  className="submit"
+                  className="submit update-button"
                   id="user-comment-input-submit"
                   onClick={() => updateOnClick()}
                 >
                   UPDATE
                 </button>
-              </>
+              </div>
             )}
           </div>
         </div>
@@ -165,7 +165,7 @@ const Comment = ({ item, comment, replyNum }) => {
               }
             ></div>
           )}
-          <div id="user-comment-input" className="comment">
+          <div id="user-comment-input" className="comment edit-comment">
             <img src={userImagePath} className="user-img" />
             <textarea
               id="user-comment-textarea"
